@@ -1,0 +1,83 @@
+# Live coding session
+
+https://codesandbox.io/s/festive-gagarin-0w787
+
+- JavaScript vs JSX
+  - React lets you place HTML in the DOM
+  - JavaScript lets you do that too
+  - Show how to place stuff in DOM with document.createElement
+    - const element = document.createElement('h1');
+    - element.innerText = 'Hello javascript world';
+    - element.classList.add('hero');
+    - const container = document.querySelector('#app');
+    - container.appendChild(element);
+  - Show how to place stuff in DOM with React.createElement
+    - import react and react-dom
+    - replace document.createElement with React.createElement
+    - pass in the class to React.createElement
+    - pass in the text to React.createElement
+    - replace container.appendChild(element) with ReactDOM.render(element, container);
+  - Show how you can simplify with using JSX
+    - jsx is just a way of writing deeply nested functions in a readable way
+      - functions inside of functions inside of functions
+    - ran through a compoiler
+    - import babel-standalone
+    - change the type of script tag to "text/babel"!
+    - rewrite the React.createElement call to use JSX
+    - show in babel repl how props are placed into second argument: https://babeljs.io/en/repl
+    - show in babel repl how you can nest tags inside of tags etc (.uio-red)
+- Components
+  - React's mantra is that the UI is a function of data
+    - Pass some data in, get some UI out
+  - Functions are the most basic building block in React
+    - Call them components
+  - A component is a function that returns some React elements (i.e. JSX)
+  - Refactor the hero heading we've used so far to be its own component
+  - By convention - components are PascalCased (starts with uppercase letter)
+  - Show in babel repl how this component is passed into JSX as its first argument
+- Props
+  - React's mantra is that the UI is a function of data
+    - This data is passed as an object, and we call that object props
+  - Whenever the props change, React makes sure to call your function again and update the browser
+  - Props can be anything - strings, numbers, arrays, functions, and even other objects
+  - Rewrite Hero to accept prop "text"
+  - Rewrite Hero to accept children prop instead
+- Make into todo-list
+  - Rename our hero to TODO
+  - Create a list of items: { id, text, completed } inside of the App
+    - Learn React
+    - Remember to vote!
+    - Figure out what DHIS stands for
+  - Create new component todo with class todo
+    - if completed prop is true, add todo--completed class as well
+  - Say something about "escaping into JavaScript" and having to return a value
+  - Map through the list with the .map function, and create <Todo />s
+- Add new todos (state)
+  - Let's add a field for adding new todos!
+  - Create a form with an input (set placeholder) and a button
+  - In order to save new todo, we need to keep track of the text
+  - Remember when I said that React means that the UI is a function of props?
+  - It's a function of props and state
+  - State is just internal props - or data inside of the component
+  - We can keep track of this data with a special function called useState.
+  - This function is called a hook
+  - Returns an array with two items - the state and a function to update the state
+  - Call useState to create a new state variable for inputText
+  - Pass the inputText to our input field - now it doesn't work
+  - Add an event listener - triggered every time the value changes
+  - Next, we want to add our todo to the list!
+  - Create new function addTodo
+  - Explain the preventDefault and why you need it
+  - create a new todo constant - but what to do with it?
+  - We need another state variable - one to keep track of our todos!
+  - Refactor todos array to be a state variable
+  - Add to end of list, start of list, and reset input
+- Toggle todo
+  - create new function toggleTodo(id)
+  - map through old todos, use ternary
+    - `todo => todo.id === id ? {...todo, completed: !todo.completed } : todo)`
+  - pass this function into the Todo component
+  - change the TODO implementation to use a button
+  - send the onToggle prop into the onClick handler
+  - voila
+- Summary

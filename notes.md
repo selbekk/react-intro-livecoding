@@ -20,7 +20,7 @@ https://codesandbox.io/s/festive-gagarin-0w787
   - Show how you can simplify with using JSX
     - jsx is just a way of writing deeply nested functions in a readable way
       - functions inside of functions inside of functions
-    - ran through a compoiler
+    - ran through a compiler
     - import babel-standalone
     - change the type of script tag to "text/babel"!
     - rewrite the React.createElement call to use JSX

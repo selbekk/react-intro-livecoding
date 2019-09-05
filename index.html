@@ -4,14 +4,76 @@
   <link rel="stylesheet" href="./styles.css" />
   <body>
     <div id="app"></div>
+
     <!-- include React -->
-    <!-- 
-      <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- include Babel -->
-    <!--
-      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const Hero = props => <h1 className="hero">{props.children}</h1>;
+
+      const Todo = props => {
+        let className = 'todo';
+        if (props.completed) {
+          className += ' todo--completed';
+        }
+        return (
+          <button className={className} onClick={props.onToggle}>
+            {props.children}
+          </button>
+        );
+      };
+
+      function App() {
+        const [todos, setTodos] = React.useState([
+          { id: 1, text: 'Do React Workshop', completed: false },
+          { id: 2, text: 'Learn what DHIS stands for', completed: true },
+        ]);
+
+        const [input, setInput] = React.useState('');
+
+        const handleSubmit = e => {
+          e.preventDefault();
+          const newTodo = {
+            id: Math.random(),
+            text: input,
+            completed: false,
+          };
+          setTodos([newTodo, ...todos]);
+          setInput('');
+        };
+
+        const handleToggle = id => {
+          const newTodos = todos.map(todo =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+          );
+          setTodos(newTodos);
+        };
+
+        return (
+          <div>
+            <Hero>Todo at UiO</Hero>
+            <form onSubmit={handleSubmit}>
+              <input value={input} onChange={e => setInput(e.target.value)} />
+              <button>Add</button>
+            </form>
+            {todos.map(todo => (
+              <Todo
+                key={todo.id}
+                id={todo.id}
+                completed={todo.completed}
+                onToggle={() => handleToggle(todo.id)}
+              >
+                {todo.text}
+              </Todo>
+            ))}
+          </div>
+        );
+      }
+
+      const container = document.getElementById('app');
+      ReactDOM.render(<App />, container);
+    </script>
   </body>
 </html>
